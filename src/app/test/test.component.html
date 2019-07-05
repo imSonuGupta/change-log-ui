@@ -1,0 +1,85 @@
+<div class="container">
+  <div *ngFor="let data of tableData">
+    <div class="my-3">
+      ID : {{ data.id }}<br>
+      Timestamp : {{ data.timestamp }}<br>
+      Name : {{ data.name }}
+      <br>
+      <hr>
+      <button class="btn btn-outline-warning mx-1" (click)="onEdit(data.id)">Edit</button>
+      <button class="btn btn-outline-danger mx-1" (click)="onDelete(data.id)">Delete</button>
+    </div>
+  </div>
+
+  <div *ngIf="isEditing">
+    <div class="jumbotron">
+      <h1>Edit</h1>
+    </div>
+    <form class="form need-validation my-5" (ngSubmit)="updateObject()" [formGroup]="editForm">
+      <div class="row justify-content-around my-3">
+        <div class="form-group col-12 col-md-5">
+          <div class="row">
+            <label class="" for="objid">ID</label>
+            <input class="form-control" type="text" id="objid" formControlName="id" />
+          </div>
+        </div>
+
+        <div class="form-group col-12 col-md-5">
+          <div class="row">
+            <label class="" for="date">Date</label>
+            <input class="form-control" type="date" id="date" formControlName="date" />
+          </div>
+        </div>
+
+        <div class="form-group col-12 col-md-5">
+          <div class="row">
+            <label class="" for="name">Name</label>
+            <input class="form-control" type="text" id="name" formControlName="name" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <button class="btn btn-outline-primary mx-1" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+
+
+
+  <div class="jumbotron my-5">
+    <h1>Create</h1>
+  </div>
+  <form class="form need-validation my-5" (ngSubmit)="addObject()" [formGroup]="createForm">
+    <div class="row justify-content-around my-3">
+      <div class="form-group col-12 col-md-5">
+        <div class="row">
+          <label class="" for="objid">ID</label>
+          <input class="form-control" type="text" id="objid" formControlName="id" />
+        </div>
+      </div>
+
+      <div class="form-group col-12 col-md-5">
+        <div class="row">
+          <label class="" for="date">Date</label>
+          <input class="form-control" type="date" id="date" formControlName="date" />
+        </div>
+      </div>
+
+      <div class="form-group col-12 col-md-5">
+        <div class="row">
+          <label class="" for="name">Name</label>
+          <input class="form-control" type="text" id="name" formControlName="name" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <button class="btn btn-outline-primary mx-1" type="submit">Submit</button>
+    </div>
+  </form>
+
+
+
+
+</div>
