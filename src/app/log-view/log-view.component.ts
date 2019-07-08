@@ -52,16 +52,25 @@ export class LogViewComponent implements OnInit {
     })
   }
 
-  openDialog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.minWidth = "40vw";
-    dialogConfig.data = {
-      // id : this.messaging.lengthMessages,
-      // pubDate : Date(),
-    }
-    this.dialog.open(LogDetailComponent, dialogConfig)
-      // .afterClosed().subscribe(result => {})
+  openDialog(id) {
+    this.getSelectedData(id, res => {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.minWidth = "40vw";
+      dialogConfig.data = {
+        dataSource : res 
+      }
+      this.dialog.open(LogDetailComponent, dialogConfig)
+        // .afterClosed().subscribe(result => {})
+    })
+  }
+
+  getSelectedData(changeID, callback){
+    // console.log(this.logData.reply);
+    var selectedDtlRow = this.logData.reply.filter(key => {
+      return key.change_id === changeID;
+    })
+    callback(selectedDtlRow)
   }
 
   onReset() {
@@ -70,12 +79,14 @@ export class LogViewComponent implements OnInit {
 
   onSubmit() {
     this.createQuery(this.searchForm.value, (query) => {
+      // console.log(query);
       this.getLog(query);
     });
   }
 
   createQuery(value, callback) {
     this.urlQuery = '?';
+    // console.log(value);
     if (Object.keys(value).length > 0) {
       Object.keys(value).forEach(key => {
         if (value[key]) {
@@ -89,9 +100,8 @@ export class LogViewComponent implements OnInit {
 
   getLog(url: string) {
     this.data.getLog(url).subscribe(res => {
-      console.log('res', res);
       this.logData = res;
-      this.dataSource = new MatTableDataSource(this.logData);
+      this.dataSource = new MatTableDataSource(this.logData.reply);
     },
       err => {
         console.log('err', err);

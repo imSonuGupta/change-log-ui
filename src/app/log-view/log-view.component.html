@@ -11,14 +11,14 @@
       <div class="form-group col-12 col-md-5">
         <div class="row">
           <label class="" for="method">Method</label>
-              <select class="form-control" id="action">
+              <select class="form-control" id="action" formControlName="method">
                 <option value="null">
                   -- SELECT ONE --
                 </option>
-                <option value="POST">
+                <option value="CREATE">
                   CREATE | POST
                 </option>
-                <option value="PUT">
+                <option value="UPDATE">
                   UPDATE | PUT
                 </option>
                 <option value="DELETE">
@@ -61,33 +61,31 @@
     </div>
   </form>
 
-  <div *ngIf="dataSource.length > 0; else noLogData">
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <div *ngIf="dataSource.data.length > 0; else noLogData">
+    <table mat-table [dataSource]="dataSource.data" matSort class="mat-elevation-z8">
       <ng-container matColumnDef="user_id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
-        <td mat-cell *matCellDef="let log"> {{log.user_id}} </td>
+        <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{log.user_id}} </td>
       </ng-container>
   
       <ng-container matColumnDef="log_date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-        <td mat-cell *matCellDef="let log"> {{log.log_date | date}} </td>
+        <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{log.log_date | date}} </td>
       </ng-container>
   
       <ng-container matColumnDef="table_name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Table name</th>
-        <td mat-cell *matCellDef="let log"> {{ log.table_name }} </td>
+        <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{ log.table_name }} </td>
       </ng-container>
       
       <ng-container matColumnDef="method">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Method</th>
-        <td mat-cell *matCellDef="let log"> {{ log.method }} </td>
+        <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{ log.method }} </td>
       </ng-container>
     
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-
-    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
     <mat-paginator [length]="100"
               [pageSize]="10"
               [pageSizeOptions]="[10, 25, 100]">

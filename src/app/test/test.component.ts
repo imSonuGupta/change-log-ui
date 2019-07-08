@@ -51,7 +51,7 @@ export class TestComponent implements OnInit {
   getObject() {
     this.data.getObject().subscribe(res => {
       this.tableData = res;
-      console.log('success');
+      // console.log('success');
     },
       err => {
         console.error('err', err);
@@ -62,7 +62,7 @@ export class TestComponent implements OnInit {
     this.data.updateObject(this.editForm.value).subscribe(res => {
       this.getObject();
       this.isEditing = false;
-      console.log('success');
+      // console.log('success');
     },
       err => {
         console.error('err', err);
@@ -72,7 +72,7 @@ export class TestComponent implements OnInit {
   addObject() {
     this.data.addObject(this.createForm.value).subscribe(res => {
       this.getObject();
-      console.log('success');
+      // console.log('success');
       this.createForm.reset();
     },
       err => {
