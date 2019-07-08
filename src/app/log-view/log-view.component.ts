@@ -12,7 +12,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 @Component({
   selector: 'app-log-view',
   templateUrl: './log-view.component.html',
-  styleUrls: ['./log-view.component.css']
+  styleUrls: ['./log-view.component.css'],
 })
 export class LogViewComponent implements OnInit {
   isLoading: boolean;
@@ -97,7 +97,7 @@ export class LogViewComponent implements OnInit {
       })
       this.urlQuery = this.urlQuery.slice(0, -1);
     }
-    console.log(this.urlQuery);
+    // console.log(this.urlQuery);
   }
 
   getLog(url: string) {
