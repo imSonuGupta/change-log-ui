@@ -26,7 +26,6 @@ export class TestComponent implements OnInit {
   ngOnInit() {
     this.tableData = this.getObject();
     this.createForm = this.form.group({
-      'id': [null],
       'date': [null],
       'name': [null],
     })
@@ -70,7 +69,7 @@ export class TestComponent implements OnInit {
       })
   }
 
-  addObject(object) {
+  addObject() {
     this.data.addObject(this.createForm.value).subscribe(res => {
       this.getObject();
       console.log('success');

@@ -2,7 +2,7 @@
   <div *ngFor="let data of tableData">
     <div class="my-3">
       ID : {{ data.id }}<br>
-      Timestamp : {{ data.timestamp }}<br>
+      Date : {{ data.date | date }}<br>
       Name : {{ data.name }}
       <br>
       <hr>
@@ -52,12 +52,6 @@
   </div>
   <form class="form need-validation my-5" (ngSubmit)="addObject()" [formGroup]="createForm">
     <div class="row justify-content-around my-3">
-      <div class="form-group col-12 col-md-5">
-        <div class="row">
-          <label class="" for="objid">ID</label>
-          <input class="form-control" type="text" id="objid" formControlName="id" />
-        </div>
-      </div>
 
       <div class="form-group col-12 col-md-5">
         <div class="row">

@@ -61,7 +61,7 @@
     </div>
   </form>
 
-  <div *ngIf="dataSource.data.length > 0; else noLogData">
+  <div *ngIf="dataSource.length > 0; else noLogData">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
       <ng-container matColumnDef="user_id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
