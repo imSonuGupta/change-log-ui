@@ -7,13 +7,15 @@ import { MatDialog, MatDialogConfig } from "@angular/material";
 import { DataService } from '../data.service';
 import { LogDetailComponent } from '../log-detail/log-detail.component';
 
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+
 @Component({
   selector: 'app-log-view',
   templateUrl: './log-view.component.html',
   styleUrls: ['./log-view.component.css']
 })
 export class LogViewComponent implements OnInit {
-
+  isLoading: boolean;
   urlQuery: string;
   searchForm: FormGroup;
   logData: any;
@@ -38,6 +40,7 @@ export class LogViewComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.urlQuery = '';
+    this.isLoading = false;
   }
 
   ngOnInit() {
@@ -61,12 +64,10 @@ export class LogViewComponent implements OnInit {
         dataSource : res 
       }
       this.dialog.open(LogDetailComponent, dialogConfig)
-        // .afterClosed().subscribe(result => {})
     })
   }
 
   getSelectedData(changeID, callback){
-    // console.log(this.logData.reply);
     var selectedDtlRow = this.logData.reply.filter(key => {
       return key.change_id === changeID;
     })
@@ -78,15 +79,16 @@ export class LogViewComponent implements OnInit {
   }
 
   onSubmit() {
-    this.createQuery(this.searchForm.value, (query) => {
-      // console.log(query);
-      this.getLog(query);
-    });
+    this.isLoading = true;
+    this.createQuery(this.searchForm.value)
+    setTimeout(() => {
+      this.getLog(this.urlQuery)
+    }, 2000);
   }
 
-  createQuery(value, callback) {
-    this.urlQuery = '?';
+  createQuery(value) {
     // console.log(value);
+    this.urlQuery = '?';
     if (Object.keys(value).length > 0) {
       Object.keys(value).forEach(key => {
         if (value[key]) {
@@ -95,19 +97,34 @@ export class LogViewComponent implements OnInit {
       })
       this.urlQuery = this.urlQuery.slice(0, -1);
     }
-    callback(this.urlQuery);
+    console.log(this.urlQuery);
   }
 
   getLog(url: string) {
     this.data.getLog(url).subscribe(res => {
       this.logData = res;
-      this.dataSource = new MatTableDataSource(this.logData.reply);
+      let resVar;
+      resVar = this.createLogHash(this.logData.reply);
+      this.isLoading = false;
+      this.dataSource = new MatTableDataSource(resVar);
     },
       err => {
+        this.isLoading = false;
         console.log('err', err);
       })
   }
 
-  displayedColumns: string[] = ['user_id', 'log_date', 'table_name', 'method'];
+  createLogHash(data){
+    var hashObj = {};
+    var resp = [];
+    data.forEach(element => {
+      if(!hashObj[element.change_id]){
+        resp.push(element);
+        hashObj[element.change_id] = true;
+      }
+    });
+    return resp;
+  }
 
+  displayedColumns: string[] = ['user_id', 'log_date', 'table_name', 'method'];
 }

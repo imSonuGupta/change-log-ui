@@ -4,15 +4,15 @@ import { RouterModule } from '@angular/router';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { MatPaginatorModule, MatSortModule, MatTableModule } from '@angular/material';
 
-import { MatDialogModule, MatSnackBarModule } from '@angular/material';
+import { MatImportModule } from './mat-import/mat-import.module';
 
 import { AppComponent } from './app.component';
 import { LogViewComponent } from './log-view/log-view.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TestComponent } from './test/test.component';
 import { LogDetailComponent } from './log-detail/log-detail.component';
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -26,14 +26,15 @@ import { LogDetailComponent } from './log-detail/log-detail.component';
     BrowserAnimationsModule,
     FormsModule, ReactiveFormsModule,
     HttpClientModule,
-    MatPaginatorModule, MatTableModule, MatSortModule,
     RouterModule.forRoot([
       { path : 'obj', component : TestComponent },
       { path : '', component : LogViewComponent }
     ]),
-    MatDialogModule, MatSnackBarModule
+    MatImportModule
   ],
-  providers: [],
+  providers: [
+    {provide : MAT_DATE_LOCALE, useValue: 'en-AU'}
+  ],
   bootstrap: [AppComponent],
   entryComponents: [ LogDetailComponent ]
 })
