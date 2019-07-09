@@ -81,9 +81,7 @@ export class LogViewComponent implements OnInit {
   onSubmit() {
     this.isLoading = true;
     this.createQuery(this.searchForm.value)
-    setTimeout(() => {
-      this.getLog(this.urlQuery)
-    }, 2000);
+    this.getLog(this.urlQuery);
   }
 
   createQuery(value) {
