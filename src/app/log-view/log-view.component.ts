@@ -7,8 +7,6 @@ import { MatDialog, MatDialogConfig } from "@angular/material";
 import { DataService } from '../data.service';
 import { LogDetailComponent } from '../log-detail/log-detail.component';
 
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-
 @Component({
   selector: 'app-log-view',
   templateUrl: './log-view.component.html',
