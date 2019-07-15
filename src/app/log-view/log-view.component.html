@@ -1,119 +1,102 @@
-<div class="container">
-  <div class="my-5">
-    <form class="" (ngSubmit)="onSubmit()" [formGroup]="searchForm">
-      <div class="row justify-content-between my-3 form">
-        <div class="form-group col-8 col-sm-6 col-md-4 col-lg-3">
-          <div class="row">
-            <mat-form-field>
-              <label class="" for="userid">Username</label>
-              <input matInput class="" type="text" id="userid" formControlName="user_id" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="form-group ccol-8 col-sm-6 col-md-4 col-lg-3">
-          <div class="row">
-            <mat-form-field>
-              <label class="" for="method">Method</label>
-              <mat-select class="" id="action" formControlName="method">
-                <mat-option value="">
-                  ALL
-                </mat-option>
-                <mat-option value="CREATE">
-                  CREATE | POST
-                </mat-option>
-                <mat-option value="UPDATE">
-                  UPDATE | PUT
-                </mat-option>
-                <mat-option value="DELETE">
-                  DELETE
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="form-group col-8 col-sm-6 col-md-4 col-lg-3">
-          <div class="row">
-            <mat-form-field>
-              <label class="" for="table">Table name</label>
-              <input matInput class="" type="text" id="table" formControlName="table_name" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="form-group col-8 col-sm-6 col-md-4 col-lg-3">
-          <div class="row">
-            <mat-form-field>
-              <label class="" for="key">Key</label>
-              <input matInput class="" type="text" id="key" formControlName="item_id" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="col">
-          <div class="row justify-content-center">
-            <div class="col-8 col-sm-6 col-lg-3">
-              <mat-form-field>
-                <label class="" for="fromlog">From</label>
-                <input matInput class="" id="fromlog" formControlName="from" [matDatepicker]="pickerFrom" />
-                <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
-                <mat-datepicker #pickerFrom></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col-8 col-sm-6 col-lg-3">
-              <mat-form-field>
-                <label class="" for="tolog">To</label>
-                <input matInput class="" id="tolog" formControlName="to" [matDatepicker]="pickerTo" />
-                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
-                <mat-datepicker #pickerTo></mat-datepicker>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row justify-content-center">
-        <button mat-raised-button class="mx-1" type="reset" (click)="onReset()">Reset Form</button>
-        <button mat-raised-button class="mx-1" type="submit">Submit</button>
-      </div>
-    </form>
-  </div>
-
-
-  <div *ngIf="dataSource.data.length > 0; else noLogData">
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-      <ng-container matColumnDef="user_id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
-        <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{log.user_id}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="log_date">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-        <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{log.log_date | date}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="table_name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Table name</th>
-        <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{ log.table_name }} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="method">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Method</th>
-        <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{ log.method }} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[10, 25, 100]">
-    </mat-paginator>
-  </div>
-
-  <ng-template #noLogData>
-    <div *ngIf="isLoading; else loaded" class="row justify-content-center align-items-center">
-      <mat-spinner></mat-spinner>
+<div class="my-5">
+  <form class="border row justify-content-around align-items-center form" (ngSubmit)="onSubmit()"
+    [formGroup]="searchForm">
+    <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+      <mat-form-field>
+        <label class="" for="userid">Username</label>
+        <input matInput class="" type="text" id="userid" formControlName="user_id" />
+      </mat-form-field>
     </div>
-    <ng-template #loaded>
-      <div class="row justify-content-center align-items-center">
-        <h2 class="display-4">No results found.....</h2>
-      </div>
-    </ng-template>
-  </ng-template>
+    <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+      <mat-form-field>
+        <label class="" for="method">Method</label>
+        <mat-select class="" id="action" formControlName="method">
+          <mat-option value="">
+            ALL
+          </mat-option>
+          <mat-option value="CREATE">
+            CREATE | POST
+          </mat-option>
+          <mat-option value="UPDATE">
+            UPDATE | PUT
+          </mat-option>
+          <mat-option value="DELETE">
+            DELETE
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+      <mat-form-field>
+        <label class="" for="table">Table name</label>
+        <input matInput class="" type="text" id="table" formControlName="table_name" />
+      </mat-form-field>
+    </div>
+    <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+      <mat-form-field>
+        <label class="" for="key">Key</label>
+        <input matInput class="" type="text" id="key" formControlName="item_id" />
+      </mat-form-field>
+    </div>
+    <div class="col-8 col-sm-6 col-lg-3">
+      <mat-form-field>
+        <label class="" for="fromlog">From</label>
+        <input matInput class="" id="fromlog" formControlName="from" [matDatepicker]="pickerFrom" />
+        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-8 col-sm-6 col-lg-3">
+      <mat-form-field>
+        <label class="" for="tolog">To</label>
+        <input matInput class="" id="tolog" formControlName="to" [matDatepicker]="pickerTo" />
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-8 col-sm-6 col-lg-3">
+      <button class="btn btn-primary mx-1" type="submit">View Log</button>
+    </div>
+  </form>
 </div>
+
+
+<div class="table" *ngIf="dataSource.data.length > 0; else noLogData">
+  <table mat-table [dataSource]="dataSource" matSort class="">
+    <ng-container matColumnDef="user_id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+      <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{log.user_id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="log_date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+      <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{log.log_date | date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="table_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Table name</th>
+      <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{ log.table_name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="method">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Method</th>
+      <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{ log.method }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[10, 25, 100]">
+  </mat-paginator>
+</div>
+
+<!-- <ng-template #noLogData>
+  <div *ngIf="isLoading; else loaded" class="row justify-content-center align-items-center">
+    <mat-spinner></mat-spinner>
+  </div>
+  <ng-template #loaded>
+    <div class="row justify-content-center align-items-center">
+      <h2 class="display-4">No results found.....</h2>
+    </div>
+  </ng-template>
+</ng-template> -->

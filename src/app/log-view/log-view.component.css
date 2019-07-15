@@ -3,7 +3,50 @@ table {
 }
 
 .form {
-  padding: 10px;
-  border: 1px #eee solid; 
-  border-radius: 1%;
+  width : 100%;
+  padding-right: 25px;
+  /* border: 25px #eee solid;  */
+  /* border-radius: 7px; */
+  background-color: white;
+  /* box-shadow: 5px 2px #777; */
+}
+
+.mat-form-field {
+  width: 100%;
+  margin: 15px;
+}
+
+.table {
+  /* border: 25px #ccc solid; 
+  border-radius: 7px; */
+  background-color: white;
+}
+
+/* th {
+  font-size : 1.4rem;
+  color: black;
+  background-color: #77d;
+} */
+
+.border { 
+  border: 25px red solid; 
+  border-radius: 7px;
+}
+
+.table th {
+  background-color: rgb(40, 32, 112);
+  color : white;
+  font-size: 18px;
+}
+
+td, .table th {
+  vertical-align: middle;
+}
+
+.btn {
+  width: 100%;
+}
+
+tr:nth-child(even){
+  background-color: rgb(100, 189, 192);
 }
