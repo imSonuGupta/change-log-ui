@@ -1,3 +1,25 @@
 table {
   width: 100%;
 }
+
+.table {
+  background-color: white;
+}
+
+.table th {
+  background-color: #007bff;
+  color : white;
+  font-size: 18px;
+}
+
+td, .table th {
+  vertical-align: middle;
+}
+
+.btn {
+  width: 100%;
+}
+
+tr:nth-child(even){
+  background-color: rgb(100, 189, 192);
+}

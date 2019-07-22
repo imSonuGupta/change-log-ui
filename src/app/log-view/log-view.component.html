@@ -1,5 +1,5 @@
 <div class="my-5">
-  <form class="border row justify-content-around align-items-center form" (ngSubmit)="onSubmit()"
+  <form class="border row justify-content-around align-items-center form my-3" (ngSubmit)="onSubmit()"
     [formGroup]="searchForm">
     <div class="col-8 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field>
@@ -54,8 +54,8 @@
         <mat-datepicker #pickerTo></mat-datepicker>
       </mat-form-field>
     </div>
-    <div class="col-8 col-sm-6 col-lg-3">
-      <button class="btn btn-primary mx-1" type="submit">View Log</button>
+    <div class="col-8">
+      <button class="btn btn-primary mx-1 mb-3" type="submit">View Log</button>
     </div>
   </form>
 </div>

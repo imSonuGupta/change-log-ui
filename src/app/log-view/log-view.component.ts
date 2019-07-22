@@ -79,6 +79,7 @@ export class LogViewComponent implements OnInit {
   onSubmit() {
     this.isLoading = true;
     this.createQuery(this.searchForm.value)
+    // console.log(this.urlQuery);
     this.getLog(this.urlQuery);
   }
 
@@ -99,15 +100,21 @@ export class LogViewComponent implements OnInit {
   getLog(url: string) {
     this.data.getLog(url).subscribe(res => {
       this.logData = res;
-      let resVar;
-      resVar = this.createLogHash(this.logData.reply);
-      this.isLoading = false;
-      this.dataSource = new MatTableDataSource(resVar);
-    },
-      err => {
+      if(this.logData.status){
+        let resVar;
+        resVar = this.createLogHash(this.logData.reply);
         this.isLoading = false;
-        console.log('err', err);
-      })
+        this.dataSource = new MatTableDataSource(resVar);
+      } 
+      else {
+        this.isLoading = false;
+        console.log(this.logData);
+      }
+    },
+    err => {
+      this.isLoading = false;
+      console.log('err', err);
+    });
   }
 
   createLogHash(data){

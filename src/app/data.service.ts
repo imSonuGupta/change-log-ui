@@ -11,7 +11,7 @@ export class DataService {
   ) { }
 
   getLog(url : string){
-    return this.http.get('http://localhost:3000/LOG' + url);
+    return this.http.get('http://localhost:5500/getLog' + url);
   }
 
   getObject(){

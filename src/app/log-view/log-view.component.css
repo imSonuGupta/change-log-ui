@@ -5,10 +5,7 @@ table {
 .form {
   width : 100%;
   padding-right: 25px;
-  /* border: 25px #eee solid;  */
-  /* border-radius: 7px; */
   background-color: white;
-  /* box-shadow: 5px 2px #777; */
 }
 
 .mat-form-field {
@@ -17,24 +14,11 @@ table {
 }
 
 .table {
-  /* border: 25px #ccc solid; 
-  border-radius: 7px; */
   background-color: white;
 }
 
-/* th {
-  font-size : 1.4rem;
-  color: black;
-  background-color: #77d;
-} */
-
-.border { 
-  border: 25px red solid; 
-  border-radius: 7px;
-}
-
 .table th {
-  background-color: rgb(40, 32, 112);
+  background-color: #007bff;
   color : white;
   font-size: 18px;
 }
