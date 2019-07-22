@@ -1,6 +1,5 @@
 <div class="my-5">
-  <form class="row justify-content-around form my-3 border" (ngSubmit)="onSubmit()"
-    [formGroup]="searchForm">
+  <form class="row justify-content-around form my-3 border" (ngSubmit)="onSubmit()" [formGroup]="searchForm">
     <div class="col-8 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field>
         <label class="" for="userid">Username</label>
@@ -61,8 +60,8 @@
 </div>
 
 
-<div class="table" *ngIf="dataSource.data.length > 0; else noLogData">
-  <table mat-table [dataSource]="dataSource" matSort class=" border">
+<div class="table border" *ngIf="dataSource.data.length > 0; else noLogData">
+  <table mat-table [dataSource]="dataSource" matSort class="border">
     <ng-container matColumnDef="user_id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
       <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{log.user_id}} </td>
@@ -91,12 +90,10 @@
 </div>
 
 <ng-template #noLogData>
-  <div *ngIf="isLoading; else loaded" class="row justify-content-center align-items-center">
+  <div *ngIf="isLoading" class="row justify-content-center align-items-center">
     <mat-spinner></mat-spinner>
   </div>
-  <ng-template #loaded>
-    <div class="row justify-content-center align-items-center">
-      <h2 class="display-4 text-warning">No results found.....</h2>
-    </div>
-  </ng-template>
+  <div *ngIf="noResult" class="row justify-content-center align-items-center no-result">
+    <h2 class="display-4">No results found</h2>
+  </div>
 </ng-template>

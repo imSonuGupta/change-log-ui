@@ -14,20 +14,21 @@ import { LogDetailComponent } from '../log-detail/log-detail.component';
 })
 export class LogViewComponent implements OnInit {
   isLoading: boolean;
+  noResult: boolean;
   urlQuery: string;
   searchForm: FormGroup;
   logData: any;
   dataSource = new MatTableDataSource([]);
 
-  private sort : MatSort;
-  private paginator : MatPaginator;
+  private sort: MatSort;
+  private paginator: MatPaginator;
 
-  @ViewChild(MatSort, { }) set matSort(ms: MatSort) {
+  @ViewChild(MatSort, {}) set matSort(ms: MatSort) {
     this.sort = ms;
     this.dataSource.sort = this.sort;
   }
 
-  @ViewChild(MatPaginator, { }) set matPaginator(mp: MatPaginator) {
+  @ViewChild(MatPaginator, {}) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
     this.dataSource.paginator = this.paginator;
   }
@@ -39,6 +40,7 @@ export class LogViewComponent implements OnInit {
   ) {
     this.urlQuery = '';
     this.isLoading = false;
+    this.noResult = false;
   }
 
   ngOnInit() {
@@ -51,7 +53,14 @@ export class LogViewComponent implements OnInit {
       'from': [null],
       'to': [null],
     })
+    // this.onChanges();
   }
+
+  // onChanges(){
+  //   this.searchForm.valueChanges.subscribe(val => {
+  //     this.isFromdateEntered;
+  //   })
+  // }
 
   openDialog(id) {
     this.getSelectedData(id, res => {
@@ -59,13 +68,19 @@ export class LogViewComponent implements OnInit {
       dialogConfig.autoFocus = true;
       dialogConfig.minWidth = "40vw";
       dialogConfig.data = {
-        dataSource : res 
+        dataSource: res
       }
       this.dialog.open(LogDetailComponent, dialogConfig)
     })
   }
 
-  getSelectedData(changeID, callback){
+  // isFromdateEntered(){
+  //   if(this.searchForm.value.from){
+  //     return true;
+  //   } else return false;
+  // }
+
+  getSelectedData(changeID, callback) {
     var selectedDtlRow = this.logData.reply.filter(key => {
       return key.change_id === changeID;
     })
@@ -100,28 +115,33 @@ export class LogViewComponent implements OnInit {
   getLog(url: string) {
     this.data.getLog(url).subscribe(res => {
       this.logData = res;
-      if(this.logData.status){
-        let resVar;
-        resVar = this.createLogHash(this.logData.reply);
-        this.isLoading = false;
-        this.dataSource = new MatTableDataSource(resVar);
-      } 
+      this.isLoading = false;
+      if (this.logData.status) {
+        if (this.logData.reply.length > 0) {
+          let resVar;
+          resVar = this.createLogHash(this.logData.reply);
+          this.isLoading = false;
+          this.dataSource = new MatTableDataSource(resVar);
+        } else {
+          this.noResult = true;
+        }
+      }
       else {
         this.isLoading = false;
         console.log(this.logData);
       }
     },
-    err => {
-      this.isLoading = false;
-      console.log('err', err);
-    });
+      err => {
+        this.isLoading = false;
+        console.log('err', err);
+      });
   }
 
-  createLogHash(data){
+  createLogHash(data) {
     var hashObj = {};
     var resp = [];
     data.forEach(element => {
-      if(!hashObj[element.change_id]){
+      if (!hashObj[element.change_id]) {
         resp.push(element);
         hashObj[element.change_id] = true;
       }
