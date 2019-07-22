@@ -21,7 +21,7 @@ export class LogDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.dataSource.data);
+    // console.log(this.dataSource.data);
   }
   
   close() {
