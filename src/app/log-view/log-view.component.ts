@@ -136,6 +136,7 @@ export class LogViewComponent implements OnInit {
           this.isLoading = false;
           this.dataSource = new MatTableDataSource(resVar);
         } else {
+          this.dataSource = new MatTableDataSource([]);
           this.noResult = true;
         }
       }
