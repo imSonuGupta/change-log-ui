@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { MatDialog, MatDialogConfig } from "@angular/material";
 
 import { DataService } from '../data.service';
 import { LogDetailComponent } from '../log-detail/log-detail.component';
+
+import { Output, EventEmitter } from '@angular/core';
+import { MatDatepickerInputEvent } from '@angular/material';
 
 @Component({
   selector: 'app-log-view',
@@ -46,21 +49,37 @@ export class LogViewComponent implements OnInit {
   ngOnInit() {
     this.logData = null;
     this.searchForm = this.form.group({
-      'user_id': [null],
-      'method': [null],
-      'table_name': [null],
-      'item_id': [null],
-      'from': [null],
-      'to': [null],
+      'user_id': new FormControl(null),
+      'method': new FormControl(null),
+      'table_name': new FormControl(null),
+      'item_id': new FormControl(null),
+      'from': new FormControl(null),
+      'to': new FormControl(null),
     })
-    // this.onChanges();
+    this.searchForm.get('to').disable();
+    this.onChange();
   }
 
-  // onChanges(){
-  //   this.searchForm.valueChanges.subscribe(val => {
-  //     this.isFromdateEntered;
-  //   })
-  // }
+  onChange(){
+    this.searchForm.get('from').valueChanges
+      .subscribe(value => {
+        if(value && this.searchForm.controls.from.status === 'VALID'){
+          this.searchForm.get('to').enable();
+        }
+        else {
+          this.searchForm.get('to').disable();
+        }
+      })
+  }
+
+  clearFrom(){
+    this.searchForm.controls.from.reset();
+    // this.searchForm.controls.to.reset();
+  }
+
+  clearTo(){
+    this.searchForm.controls.to.reset();
+  }
 
   openDialog(id) {
     this.getSelectedData(id, res => {
@@ -73,12 +92,6 @@ export class LogViewComponent implements OnInit {
       this.dialog.open(LogDetailComponent, dialogConfig)
     })
   }
-
-  // isFromdateEntered(){
-  //   if(this.searchForm.value.from){
-  //     return true;
-  //   } else return false;
-  // }
 
   getSelectedData(changeID, callback) {
     var selectedDtlRow = this.logData.reply.filter(key => {
@@ -109,7 +122,7 @@ export class LogViewComponent implements OnInit {
       })
       this.urlQuery = this.urlQuery.slice(0, -1);
     }
-    // console.log(this.urlQuery);
+    console.log(this.urlQuery);
   }
 
   getLog(url: string) {

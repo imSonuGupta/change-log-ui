@@ -13,13 +13,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TestComponent } from './test/test.component';
 import { LogDetailComponent } from './log-detail/log-detail.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
+import { DisableControlDirective } from './disable-control.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     LogViewComponent,
     TestComponent,
-    LogDetailComponent
+    LogDetailComponent,
+    DisableControlDirective
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     MatImportModule
   ],
   providers: [
-    {provide : MAT_DATE_LOCALE, useValue: 'en-AU'}
+    {provide : MAT_DATE_LOCALE, useValue: 'en-GB'}
   ],
   bootstrap: [AppComponent],
   entryComponents: [ LogDetailComponent ]

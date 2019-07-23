@@ -9,13 +9,15 @@ table {
 
 .form {
   width : 100%;
-  padding-right: 25px;
+  /* padding-right: 25px; */
   background-color: rgba(255, 255, 255, 0.8);
 }
 
 .mat-form-field {
-  width: 100%;
-  margin: 15px;
+  /* width: 100%; */
+  /* margin: 10px; */
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .table {
@@ -52,10 +54,14 @@ tr:nth-child(even){
 
 .no-result {
   background-color: rgba(255, 255, 255, 0.5);
-  color : white;
+  color : black;
   border-radius: 10px;
 }
 
 .paginator {
-  background-color: #ddd;
+  background-color: #ccc;
+}
+
+.clickable {
+  cursor: pointer;
 }

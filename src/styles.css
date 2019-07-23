@@ -5,7 +5,7 @@ body {
   margin: 0; 
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: black; 
-  background-image: url('./assets/images/codebg.jpg');
+  background-image: linear-gradient(to top right, white, #aaa);
   background-attachment: fixed;
 }
 

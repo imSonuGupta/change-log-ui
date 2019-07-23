@@ -21,5 +21,9 @@ td, .table th {
 }
 
 tr:nth-child(even){
-  background-color: rgb(100, 189, 192);
+  background-color: #7498be;
+}
+
+.tag {
+  font-weight: 600;
 }
