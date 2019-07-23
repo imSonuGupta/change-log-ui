@@ -55,3 +55,7 @@ tr:nth-child(even){
   color : white;
   border-radius: 10px;
 }
+
+.paginator {
+  background-color: #ddd;
+}
