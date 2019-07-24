@@ -1,5 +1,6 @@
-<div class="my-5">
-  <form class="row justify-content-around align-items-center form my-3 border" (ngSubmit)="onSubmit()" [formGroup]="searchForm">
+<div class="my-1">
+  <form class="row justify-content-around align-items-center form my-3 border" (ngSubmit)="onSubmit()"
+    [formGroup]="searchForm">
     <div class="col-8 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field appearance="outline">
         <mat-label class="" for="userid">Username</mat-label>
@@ -27,8 +28,14 @@
     </div>
     <div class="col-8 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field appearance="outline">
+        <mat-label class="" for="database">Database name</mat-label>
+        <input matInput class="" type="text" id="database" formControlName="database_name" />
+      </mat-form-field>
+    </div>
+    <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+      <mat-form-field appearance="outline">
         <mat-label class="" for="table">Table name</mat-label>
-        <input matInput class="" type="text" id="table" formControlName="table_name"/>
+        <input matInput class="" type="text" id="table" formControlName="table_name" />
       </mat-form-field>
     </div>
     <div class="col-8 col-sm-6 col-md-4 col-lg-3">
@@ -40,9 +47,8 @@
     <div class="col-8 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field appearance="outline">
         <mat-label class="" for="fromlog">From</mat-label>
-        <input matInput class="" id="fromlog" placeholder="mm/dd/yyyy"
-         formControlName="from" [matDatepicker]="pickerFrom"
-         readonly="readonly"/>
+        <input matInput class="" id="fromlog" placeholder="mm/dd/yyyy" formControlName="from"
+          [matDatepicker]="pickerFrom" readonly="readonly" />
         <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
         <mat-datepicker #pickerFrom></mat-datepicker>
         <mat-hint (click)="clearFrom()" class="clickable" [hidden]="isFromHidden">Clear</mat-hint>
@@ -51,12 +57,11 @@
     <div class="col-8 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field appearance="outline">
         <mat-label class="" for="tolog">To</mat-label>
-        <input matInput class="" id="tolog" readonly="readonly"
-         formControlName="to" [matDatepicker]="pickerTo" 
-         placeholder="mm/dd/yyyy" />
+        <input matInput class="" id="tolog" readonly="readonly" formControlName="to" [matDatepicker]="pickerTo"
+          placeholder="mm/dd/yyyy" />
         <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
         <mat-datepicker #pickerTo></mat-datepicker>
-        <mat-hint (click)="clearTo()" class="clickable" [hidden]="isToHidden" >Clear</mat-hint>
+        <mat-hint (click)="clearTo()" class="clickable" [hidden]="isToHidden">Clear</mat-hint>
       </mat-form-field>
     </div>
     <div class="col-8 col-sm-6 col-md-4 col-lg-3">
@@ -78,6 +83,11 @@
       <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{log.log_date | date}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="database_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Database name</th>
+        <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{ log.database_name }} </td>
+      </ng-container>
+    
     <ng-container matColumnDef="table_name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Table name</th>
       <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{ log.table_name }} </td>

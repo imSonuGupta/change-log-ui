@@ -7,9 +7,6 @@ import { MatDialog, MatDialogConfig } from "@angular/material";
 import { DataService } from '../data.service';
 import { LogDetailComponent } from '../log-detail/log-detail.component';
 
-import { Output, EventEmitter } from '@angular/core';
-import { MatDatepickerInputEvent } from '@angular/material';
-
 @Component({
   selector: 'app-log-view',
   templateUrl: './log-view.component.html',
@@ -55,6 +52,7 @@ export class LogViewComponent implements OnInit {
     this.searchForm = this.form.group({
       'user_id': new FormControl(null),
       'method': new FormControl(null),
+      'database_name': new FormControl(null),
       'table_name': new FormControl(null),
       'item_id': new FormControl(null),
       'from': new FormControl(null),
@@ -138,7 +136,7 @@ export class LogViewComponent implements OnInit {
       })
       this.urlQuery = this.urlQuery.slice(0, -1);
     }
-    console.log(this.urlQuery);
+    // console.log(this.urlQuery);
   }
 
   getLog(url: string) {
@@ -179,5 +177,5 @@ export class LogViewComponent implements OnInit {
     return resp;
   }
 
-  displayedColumns: string[] = ['user_id', 'log_date', 'table_name', 'method'];
+  displayedColumns: string[] = ['user_id', 'log_date', 'database_name', 'table_name', 'method'];
 }
