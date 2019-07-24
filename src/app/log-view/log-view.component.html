@@ -1,5 +1,5 @@
 <div class="my-5">
-  <form class="row justify-content-around form my-3 border" (ngSubmit)="onSubmit()" [formGroup]="searchForm">
+  <form class="row justify-content-around align-items-center form my-3 border" (ngSubmit)="onSubmit()" [formGroup]="searchForm">
     <div class="col-8 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field appearance="outline">
         <mat-label class="" for="userid">Username</mat-label>
@@ -14,10 +14,10 @@
             ALL
           </mat-option>
           <mat-option value="CREATE">
-            CREATE | POST
+            CREATE
           </mat-option>
           <mat-option value="UPDATE">
-            UPDATE | PUT
+            UPDATE
           </mat-option>
           <mat-option value="DELETE">
             DELETE
@@ -37,7 +37,7 @@
         <input matInput class="" type="text" id="key" formControlName="item_id" />
       </mat-form-field>
     </div>
-    <div class="col-8 col-sm-6 col-lg-3">
+    <div class="col-8 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field appearance="outline">
         <mat-label class="" for="fromlog">From</mat-label>
         <input matInput class="" id="fromlog" placeholder="mm/dd/yyyy"
@@ -45,10 +45,10 @@
          readonly="readonly"/>
         <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
         <mat-datepicker #pickerFrom></mat-datepicker>
-        <mat-hint (click)="clearFrom()" class="clickable">Clear</mat-hint>
+        <mat-hint (click)="clearFrom()" class="clickable" [hidden]="isFromHidden">Clear</mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-8 col-sm-6 col-lg-3">
+    <div class="col-8 col-sm-6 col-md-4 col-lg-3">
       <mat-form-field appearance="outline">
         <mat-label class="" for="tolog">To</mat-label>
         <input matInput class="" id="tolog" readonly="readonly"
@@ -56,10 +56,10 @@
          placeholder="mm/dd/yyyy" />
         <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
         <mat-datepicker #pickerTo></mat-datepicker>
-        <mat-hint (click)="clearTo()" class="clickable">Clear</mat-hint>
+        <mat-hint (click)="clearTo()" class="clickable" [hidden]="isToHidden" >Clear</mat-hint>
       </mat-form-field>
     </div>
-    <div class="col-8">
+    <div class="col-8 col-sm-6 col-md-4 col-lg-3">
       <button class="btn btn-primary mx-1 mb-3" type="submit" [disabled]="!searchForm.valid">View Log</button>
     </div>
   </form>

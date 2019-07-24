@@ -17,6 +17,8 @@ import { MatDatepickerInputEvent } from '@angular/material';
 })
 export class LogViewComponent implements OnInit {
   isLoading: boolean;
+  isFromHidden: boolean;
+  isToHidden: boolean;
   noResult: boolean;
   urlQuery: string;
   searchForm: FormGroup;
@@ -44,6 +46,8 @@ export class LogViewComponent implements OnInit {
     this.urlQuery = '';
     this.isLoading = false;
     this.noResult = false;
+    this.isFromHidden = true;
+    this.isToHidden = true;
   }
 
   ngOnInit() {
@@ -60,25 +64,37 @@ export class LogViewComponent implements OnInit {
     this.onChange();
   }
 
-  onChange(){
+  onChange() {
     this.searchForm.get('from').valueChanges
       .subscribe(value => {
-        if(value && this.searchForm.controls.from.status === 'VALID'){
+        if (value) {
+          this.isFromHidden = false;
+        }
+        if (value && this.searchForm.controls.from.status === 'VALID') {
           this.searchForm.get('to').enable();
         }
         else {
           this.searchForm.get('to').disable();
         }
       })
+
+    this.searchForm.get('to').valueChanges
+      .subscribe(value => {
+        if (value) {
+          this.isToHidden = false;
+        }
+      })
   }
 
-  clearFrom(){
+  clearFrom() {
     this.searchForm.controls.from.reset();
+    this.isFromHidden = true;
     // this.searchForm.controls.to.reset();
   }
 
-  clearTo(){
+  clearTo() {
     this.searchForm.controls.to.reset();
+    this.isToHidden = true;
   }
 
   openDialog(id) {
