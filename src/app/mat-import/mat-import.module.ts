@@ -14,6 +14,7 @@ import {
   MatDatepickerModule,
   MatProgressSpinnerModule,
   MatFormFieldModule,
+  MatExpansionModule,
   MatNativeDateModule
 } from '@angular/material';
 
@@ -31,6 +32,7 @@ import {
     MatTooltipModule,
     MatDatepickerModule,
     MatProgressSpinnerModule,
+    MatExpansionModule,
     MatFormFieldModule
   ],
   exports: [
@@ -46,6 +48,7 @@ import {
     MatNativeDateModule,
     MatDatepickerModule,
     MatProgressSpinnerModule,
+    MatExpansionModule,
     MatFormFieldModule
   ]
 })
