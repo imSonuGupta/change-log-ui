@@ -177,5 +177,5 @@ export class LogViewComponent implements OnInit {
     return resp;
   }
 
-  displayedColumns: string[] = ['user_id', 'log_date', 'database_name', 'table_name', 'method'];
+  displayedColumns: string[] = ['user_id', 'log_date', 'log_time', 'database_name', 'table_name', 'method'];
 }
