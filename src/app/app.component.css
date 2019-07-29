@@ -9,3 +9,8 @@
 .navigation a {
   color : white;
 }
+
+.product {
+  font-size: 2.5rem;
+  font-weight: 300;
+}
