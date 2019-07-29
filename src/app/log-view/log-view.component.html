@@ -1,5 +1,5 @@
 <div class="my-3">
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Search
@@ -34,25 +34,26 @@
       </div>
       <div class="col-8 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field appearance="outline">
-          <mat-label class="" for="database">Database name</mat-label>
+          <mat-label class="" for="database">Database name*</mat-label>
           <input matInput class="" type="text" id="database" formControlName="database_name" />
+          <!-- <mat-hint matSuffix class="text-danger">Required</mat-hint> -->
         </mat-form-field>
       </div>
       <div class="col-8 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field appearance="outline">
-          <mat-label class="" for="table">Table name</mat-label>
+          <mat-label class="" for="table">Table name*</mat-label>
           <input matInput class="" type="text" id="table" formControlName="table_name" />
         </mat-form-field>
       </div>
-      <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+      <!-- <div class="col-8 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field appearance="outline">
           <mat-label class="" for="key">Key</mat-label>
           <input matInput class="" type="text" id="key" formControlName="item_id" />
         </mat-form-field>
-      </div>
+      </div> -->
       <div class="col-8 col-sm-6 col-md-4 col-lg-3">
         <mat-form-field appearance="outline">
-          <mat-label class="" for="fromlog">From</mat-label>
+          <mat-label class="" for="fromlog">From*</mat-label>
           <input matInput class="" id="fromlog" placeholder="mm/dd/yyyy" formControlName="from"
             [matDatepicker]="pickerFrom" readonly="readonly" />
           <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
@@ -95,10 +96,10 @@
         <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{log.log_time }} </td>
       </ng-container>
 
-    <ng-container matColumnDef="database_name">
+    <!-- <ng-container matColumnDef="database_name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Database name</th>
       <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{ log.database_name }} </td>
-    </ng-container>
+    </ng-container> -->
 
     <ng-container matColumnDef="table_name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Table name</th>
@@ -109,6 +110,14 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Method</th>
       <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{ log.method }} </td>
     </ng-container>
+
+    <ng-container *ngFor="let pk of primaryCols">
+      <ng-container matColumnDef="{{pk}}">
+        <th mat-header-cell *matHeaderCellDef> {{ pk | titlecase }}</th>
+        <td mat-cell *matCellDef="let log" (click)="openDialog(log.change_id)"> {{ log.item_id[pk] }} </td>
+      </ng-container>
+    </ng-container>
+    
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

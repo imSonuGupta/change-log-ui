@@ -1,6 +1,12 @@
-<h2 mat-dialog-title>Key : {{ logObject.item_id }}</h2>
+<ng-container *ngFor="let pk of primaryCols">
+  <div class="row">
+    <div class="col-12"><span class="tag">{{ pk | titlecase }} :</span> {{ logObject.item_id[pk] }}</div>
+  </div>
+</ng-container>
 
-<mat-dialog-content class="">
+<!-- <h2 mat-dialog-title>Key : {{ logObject.item_id }}</h2> -->
+
+<mat-dialog-content class="mt-3">
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 col-md-6"><span class="tag">Database :</span> {{ logObject.database_name }}</div>

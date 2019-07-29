@@ -11,13 +11,16 @@ export class LogDetailComponent implements OnInit {
 
   dataSource = new MatTableDataSource();
   logObject : any;
+  primaryCols: string[];
 
   constructor(
     private dialogRef: MatDialogRef<LogDetailComponent>,
     @Inject(MAT_DIALOG_DATA) data
   ) { 
+    this.primaryCols = [];
     this.dataSource = new MatTableDataSource(data.dataSource);
     this.logObject = data.dataSource[0];
+    this.createPrimaryCols(this.logObject);
   }
 
   ngOnInit() {
@@ -26,6 +29,15 @@ export class LogDetailComponent implements OnInit {
   
   close() {
     this.dialogRef.close();
+  }
+
+  createPrimaryCols(obj: object){
+    if(obj['item_id']){
+      var itemId = obj['item_id'];
+      Object.keys(itemId).forEach(key => {
+        this.primaryCols.push(key);
+      })
+    }
   }
 
   displayedColumns: string[] = ['field_name', 'old_value', 'new_value'];

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { MatDialog, MatDialogConfig } from "@angular/material";
@@ -13,14 +13,15 @@ import { LogDetailComponent } from '../log-detail/log-detail.component';
   styleUrls: ['./log-view.component.css'],
 })
 export class LogViewComponent implements OnInit {
-  isLoading: boolean;
-  isFromHidden: boolean;
-  isToHidden: boolean;
-  noResult: boolean;
-  urlQuery: string;
+  isLoading: boolean;     //display mat-spinner
+  isFromHidden: boolean;  //display clear option on 'from'
+  isToHidden: boolean;    //display clear option on 'to'
+  noResult: boolean;      //display message 'no result found'
+  urlQuery: string;       //search query
   searchForm: FormGroup;
-  logData: any;
+  logData: any;           //store server response
   dataSource = new MatTableDataSource([]);
+  primaryCols : string[];  //create a list of primary key cols
 
   private sort: MatSort;
   private paginator: MatPaginator;
@@ -45,6 +46,7 @@ export class LogViewComponent implements OnInit {
     this.noResult = false;
     this.isFromHidden = true;
     this.isToHidden = true;
+    
   }
 
   ngOnInit() {
@@ -52,28 +54,28 @@ export class LogViewComponent implements OnInit {
     this.searchForm = this.form.group({
       'user_id': new FormControl(null),
       'method': new FormControl(null),
-      'database_name': new FormControl(null),
-      'table_name': new FormControl(null),
-      'item_id': new FormControl(null),
-      'from': new FormControl(null),
+      'database_name': new FormControl(null, [Validators.required]),
+      'table_name': new FormControl(null, [Validators.required]),
+      'from': new FormControl(null, [Validators.required]),
       'to': new FormControl(null),
     })
-    this.searchForm.get('to').disable();
+    // this.searchForm.get('to').disable();
     this.onChange();
   }
 
+  //display status of 'clear' button
   onChange() {
     this.searchForm.get('from').valueChanges
       .subscribe(value => {
         if (value) {
           this.isFromHidden = false;
         }
-        if (value && this.searchForm.controls.from.status === 'VALID') {
-          this.searchForm.get('to').enable();
-        }
-        else {
-          this.searchForm.get('to').disable();
-        }
+        // if (value && this.searchForm.controls.from.status === 'VALID') {
+        //   this.searchForm.get('to').enable();
+        // }
+        // else {
+        //   this.searchForm.get('to').disable();
+        // }
       })
 
     this.searchForm.get('to').valueChanges
@@ -87,7 +89,6 @@ export class LogViewComponent implements OnInit {
   clearFrom() {
     this.searchForm.controls.from.reset();
     this.isFromHidden = true;
-    // this.searchForm.controls.to.reset();
   }
 
   clearTo() {
@@ -108,14 +109,10 @@ export class LogViewComponent implements OnInit {
   }
 
   getSelectedData(changeID, callback) {
-    var selectedDtlRow = this.logData.reply.filter(key => {
+    let selectedDtlRow = this.logData.reply.filter(key => {
       return key.change_id === changeID;
     })
     callback(selectedDtlRow)
-  }
-
-  onReset() {
-    this.searchForm.reset();
   }
 
   onSubmit() {
@@ -145,9 +142,9 @@ export class LogViewComponent implements OnInit {
       this.isLoading = false;
       if (this.logData.status) {
         if (this.logData.reply.length > 0) {
-          let resVar;
-          resVar = this.createLogHash(this.logData.reply);
+          let resVar = this.createLogHash(this.logData.reply);
           this.isLoading = false;
+          console.log(resVar);
           this.dataSource = new MatTableDataSource(resVar);
         } else {
           this.dataSource = new MatTableDataSource([]);
@@ -166,16 +163,31 @@ export class LogViewComponent implements OnInit {
   }
 
   createLogHash(data) {
-    var hashObj = {};
-    var resp = [];
+    let hashObj = {};
+    let resp = [];
     data.forEach(element => {
       if (!hashObj[element.change_id]) {
         resp.push(element);
         hashObj[element.change_id] = true;
       }
     });
+    // console.log(resp);
+    this.createPrimaryCols(resp[0]);
     return resp;
   }
 
-  displayedColumns: string[] = ['user_id', 'log_date', 'log_time', 'database_name', 'table_name', 'method'];
+  createPrimaryCols(obj: object){
+    this.primaryCols = [];
+    this.displayedColumns = ['user_id', 'log_date', 'log_time', 'method', 'table_name'];
+    if(obj['item_id']){
+      let itemId = obj['item_id'];
+      Object.keys(itemId).forEach(key => {
+        this.displayedColumns.push(key);
+        this.primaryCols.push(key);
+      })
+    }
+  }
+
+  // displayedColumns: string[] = ['user_id', 'log_date', 'log_time', 'database_name', 'table_name', 'method'];
+  displayedColumns: string[];
 }
