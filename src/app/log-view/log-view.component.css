@@ -25,7 +25,7 @@ table {
 }
 
 .table th {
-  background-color: #007bff;
+  background-color: rgb(7, 73, 27);
   color : white;
   font-size: 18px;
 }
@@ -43,7 +43,7 @@ tr:hover {
 }
 
 tr:nth-child(even){
-  background-color: #7498be;
+  background-color: #eee;
 }
 
 .border {

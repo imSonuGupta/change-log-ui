@@ -7,7 +7,7 @@ table {
 }
 
 .table th {
-  background-color: #007bff;
+  background-color: rgb(7, 73, 27);
   color : white;
   font-size: 18px;
 }
@@ -21,7 +21,7 @@ td, .table th {
 }
 
 tr:nth-child(even){
-  background-color: #7498be;
+  background-color: #eee;
 }
 
 .tag {
